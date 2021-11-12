@@ -74,7 +74,7 @@ class watTF():
 
         # DASHBOARD
         self.DASHBOARD = Dashboard.Dashboard()
-        # self.DASHBOARD.run_dashboard()
+        self.DASHBOARD.run_dashboard()
         self.DASHBOARD.seedTotalCount = self.SEEDCount
 
         # input initialize

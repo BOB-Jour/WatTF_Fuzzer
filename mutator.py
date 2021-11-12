@@ -91,7 +91,7 @@ class Mutator():
             cmd.append("-format js")
             cmd.append("-count " + str(self.args.d))
             cmd = " ".join(cmd)
-            print(cmd)
+            # print(cmd)
             subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True, shell=True, preexec_fn=os.setsid).wait()
 
         except Exception as e:

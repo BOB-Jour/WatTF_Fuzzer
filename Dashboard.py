@@ -47,4 +47,4 @@ class Dashboard:
             field.addstr(0, 0, dashboard_template)
 
     def run_dashboard(self):
-        dashboard_thread = threading.Thread(target=self.dashboard).start()
+        dashboard_thread = threading.Thread(target=self.dashboard, daemon=True).start()
