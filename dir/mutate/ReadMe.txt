@@ -1,0 +1,2 @@
+mutate directory
+- mutated wasm

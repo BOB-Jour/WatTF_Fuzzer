@@ -1,0 +1,30 @@
+
+SectionName :=
+	"A"
+	"name"
+	""
+	"debug"
+%%% added "AAAA...A"
+
+ModuleWasmMethods :=
+	!array! = WebAssembly.Module.customSections(!modulewasm!, +SectionName+);
+	!array! = WebAssembly.Module.customSections(!modulewasm!, !string!);
+	!array! = WebAssembly.Module.exports(!modulewasm!);
+	!string! = WebAssembly.Module.exports(!modulewasm!).toString();
+	!array! = WebAssembly.Module.imports(!modulewasm!);
+	!string! = WebAssembly.Module.imports(!modulewasm!).toString();
+	!modulewasm! = new WebAssembly.Module(+bufferSource+);
+	
+%%% delete !modulewasm!;
+
+%%% ############# WebAssembly.Instance() #################
+%%% ## https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Instance
+
+arguments :=
+	!bool!
+	!number!
+	!number!
+	!globalwasm!
+	!globalwasm!
+
+importObject :=

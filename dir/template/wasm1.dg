@@ -1,0 +1,103 @@
+%%% ###########################################
+%%% ############# WebAssembly #################
+%%% ## https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly
+%%% #############
+
+%const% VARIANCE_MIN := 200
+%const% VARIANCE_MAX := 1000
+%const% VARIABLE_MIN := 2
+%const% VARIABLE_MAX := 2
+
+%%% ####################################################
+%%% ####################################################
+%%% ####### VALUE  SECTION
+%%% ####### only definition of value
+%%% ####### you can use & assign value: +value+
+%%% ####### you can use variable: !variable!.bar();
+%%% ####################################################
+%%% ####################################################
+
+%section% := value
+
+%%% ######## WebAssembly.Global() values ###########
+%%% ## https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Global
+
+WasmTypeInt :=
+	"i32"
+	"i64"
+
+WasmTypeFloat :=
+	"f32"
+	"f64"
+
+Name :=
+	"A"
+
+GlobalDescriptorFloat :=
+	{value: +WasmTypeFloat+, mutable: +common:bool+}
+
+GlobalDescriptorInt :=
+	{value: +WasmTypeInt+, mutable: +common:bool+}
+
+GlobalParameters :=
+	+GlobalDescriptorFloat+, +common:decimal_number+
+	+GlobalDescriptorInt+, +common:integer+
+
+GlobalWasmMethods :=
+	!globalwasm!.value = !number!;
+	!globalwasm!.value = +common:number+;
+	!globalwasm!.value = +common:intoverflow+;		
+	!number! = !globalwasm!.value;
+	!number! = !globalwasm!.valueOf();
+	!string! = !globalwasm!.toString();
+	!string! = +Name+.repeat(+common:number+);
+	!string! = +Name+.repeat(+common:intoverflow+);
+%%% added !globalwasm!.value = +common:intoverflow+;
+
+
+%%% delete !globalwasm!;
+
+%%% ############# WebAssembly.Table() #################
+%%% ## https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Table
+
+TableDescriptor :=
+	{element: "anyfunc", initial: %range%(0-42)}
+	{element: "anyfunc", initial: %range%(0-42), maximum: %range%(43-99)}
+
+TableWasmMethods :=
+	!number! = !tablewasm!.length - 1;
+	!funcRef! = !tablewasm!.get(%range%(0-42));
+	!funcRef! = !tablewasm!.get(!number!);
+	!number! = !tablewasm!.grow(%range%(0-42));
+	!number! = !tablewasm!.grow(!number!);
+	!tablewasm!.set(%range%(0-42), !funcRef!);
+	!tablewasm!.set(!number!, !funcRef!);
+%%% delete !tablewasm!;
+
+%%% ############# WebAssembly.Memory() #################
+%%% ## https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory
+
+memoryDescriptor :=
+	{initial: %range%(0-9)}
+	{initial: %range%(0-9), maximum: %range%(9-999)}
+	{initial: %range%(0-9), maximum: %range%(9-999), shared:true}		
+%%% added {initial: %range%(0-9), maximum: %range%(9-999), shared:true}
+
+MemoryWasmMethods :=
+	!number! = !memorywasm!.buffer.length - 1;
+	!array! = !memorywasm!.buffer;
+	!number! = !memorywasm!.grow(!number!);
+	!number! = !memorywasm!.grow(%range%(0-9));
+	!memorywasm!.buffer[%range%(0-9)] = %range%(0-9);
+	!memorywasm!.buffer[!number!] = %range%(0-9);
+	!memorywasm!.buffer[!number!] = !number!;
+	for (var i = 0; i < !memorywasm!.buffer.length; i++) {!memorywasm!.buffer[i] = %range%(0-9);}
+	for (var i = 0; i < !memorywasm!.buffer.length; i++) {!memorywasm!.buffer[i] = +common:number+;}
+%%% delete !memorywasm!;
+
+%%% ############# WebAssembly.Module() #################
+%%% ## https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Module
+
+%%% hello world module with main function exported
+
+bufferSource := 

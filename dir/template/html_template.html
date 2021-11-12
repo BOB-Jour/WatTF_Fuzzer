@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WASM test</title>
+    </head>
+
+    <body>
+        <script>
+            async function poc() {
+                    // c 코드를 컴파일해서 나온 js를 blob으로 만들기 (아래 붙이기)
+                    js =  `
+
+                    `
+                    const blob = new Blob([js], {type: 'application/javascript'});
+                    const m = await import(URL.createObjectURL(blob));
+
+                    // dharma로 생성한 자바스크립트 api 붙이기
+
+            }
+            poc();
+        </script>
+    </body>
+</html>
+

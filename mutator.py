@@ -49,43 +49,33 @@ class Mutator():
 
 
     def make_template(self):
-        # 1. seed/x.txt 내용 template 중간에 넣기 (for import)
-        # 2. try catch로 js 파일 통째로 맨 마지막에 넣기
-        # 3. exports.txt
-        # 4. 100개의 mutate된 wasm을 template 중간에 집어넣기
-
-        # python3 mutator.py로 테스트를 위한 테스트 코드
-        # mutate된 파일 하나만 테스트.. mutate00.wasm
         try:
-            with open("./dir/template/real_wasm.dg", "w") as outfile:
-                with open("./dir/template/wasm1.dg", "r") as wasm1:
+            with open("./dir/template/dharma_template.dg", "w") as outfile:
+                with open("./dir/template/wasm1.dg", "rt") as wasm1:
                     outfile.write(wasm1.read())
-                with open(MUTATE_WASM_PATH+"./mutate00.wasm", "rb") as f:
-                    data = f.read()
-                    modulewasm = "  new Uint8Array(["
-                    for b in data:
-                        modulewasm += str(b)
-                        modulewasm += ","
-                    modulewasm = modulewasm[:-1]
-                    modulewasm += "])\n"
-                    outfile.write(str(modulewasm)) # 4
-                with open("./dir/template/wasm2.dg", "r") as wasm2:
+                for wasm in self.MUTATELIST:
+                    with open("./dir/mutate/" + wasm, "rb") as f:
+                        data = f.read()
+                        modulewasm = "  new Uint8Array(["
+                        for b in data:
+                            modulewasm += str(b)
+                            modulewasm += ","
+                        modulewasm = modulewasm[:-1]
+                        modulewasm += "])\n"
+                        outfile.write(str(modulewasm)) # 뮤테이트된 wasm byte array 추가
+                with open("./dir/template/wasm2.dg", "rt") as wasm2:
                     outfile.write(wasm2.read())
-                with open(import_txt, "r") as txt:
-                    outfile.write("    "+txt.read()+"\n") # 1
-                    InstanceWasmMethods = "InstanceWasmMethods :=\n"
-                    InstanceWasmMethods += "    test\n"
-                    outfile.write(InstanceWasmMethods) # 3
-                with open("./dir/template/wasm3.dg", "r") as wasm3:
+                with open("./dir/seed/exports.txt", "rt") as exports:
+                    InstanceWasmMethods = 'InstanceWasmMethods :='
+                    outfile.write(InstanceWasmMethods+"\n")
+                    lines = exports.readlines()
+                    for line in lines:
+                        outfile.write("    "+line) # exports.txt
+                with open("./dir/template/wasm3.dg", "rt") as wasm3:
                     outfile.write(wasm3.read())
-                with open(normal_js, "r") as js:
-                    #outfile.write(js.read()) # 2 nono
-                    outfile.write("	try { +wrapper+ } catch(e) {}")
-
         except Exception as e:
-            print("[!] ERROR in make_template")
-            print(e)
-
+            print("[!] ERROR in make_template ./dir/template/..")
+            print("[!]", e)
 
     def use_dharma(self, idx):
         try:

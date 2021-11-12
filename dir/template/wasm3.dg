@@ -1,0 +1,82 @@
+	!instancewasm! = new WebAssembly.Instance(!modulewasm!, +importObject+);
+%%% test exported_func
+
+%%% ############# WebAssembly Methods #################
+%%% ## https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly#Methods
+
+wasmSample :=
+	sample.wasm
+
+WasmMethods :=
+	!bool! = WebAssembly.validate(+bufferSource+);
+	WebAssembly.compile(+bufferSource+);
+
+%%% ############# Additional Operations #################
+
+AdditionalOperations :=
+	!number! = +common:intoverflow+;
+
+
+%%% ############# Wrapper #################
+
+wrapper :=
+	+GlobalWasmMethods+
+	+TableWasmMethods+
+	+MemoryWasmMethods+
+	+ModuleWasmMethods+
+	+InstanceWasmMethods+
+	+AdditionalOperations+		
+    +WasmMethods+				
+%%% added +AdditionalOperations+
+%%% added  +WasmMethods+	
+
+%%% ####################################################
+%%% ####################################################
+%%% ####### VARIABLE  SECTION
+%%% ####### only assignement of variable here
+%%% ####### ex: @MyVariable@= 5;
+%%% ####################################################
+%%% ####################################################
+
+%section% := variable
+
+bool :=
+	try { var @bool@ = true; } catch(e) {}
+	try { var @bool@ = false; } catch(e) {}
+
+number :=
+	try { var @number@ = %range%(0-42); } catch(e) {}
+
+string :=
+	try { var @string@ = +Name+.repeat(+common:number+); } catch(e) {}
+
+array :=
+	try { var @array@ = []; } catch(e) {}
+
+funcRef :=
+	try { var @funcRef@ = 0; } catch(e) {}
+
+globalwasm :=
+	try { var @globalwasm@ = new WebAssembly.Global(+GlobalParameters+); } catch(e) {}
+
+tablewasm :=
+	try { var @tablewasm@ = new WebAssembly.Table(+TableDescriptor+); } catch(e) {}
+
+memorywasm :=
+	try { var @memorywasm@ = new WebAssembly.Memory(+memoryDescriptor+); } catch(e) {}
+
+modulewasm :=
+	try { var @modulewasm@ = new WebAssembly.Module(+bufferSource+); } catch(e) {}
+
+instancewasm :=
+	try { var @instancewasm@ = new WebAssembly.Instance(!modulewasm!, +importObject+); } catch(e) {}
+
+%%% ####################################################
+%%% ####################################################
+%%% ####### VARIANCE  SECTION
+%%% ####################################################
+%%% ####################################################
+%section% := variance
+
+main :=
+	try { +wrapper+ } catch(e) {}
