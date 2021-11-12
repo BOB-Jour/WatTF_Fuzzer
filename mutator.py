@@ -53,7 +53,8 @@ class Mutator():
             with open("./dir/template/dharma_template.dg", "w") as outfile:
                 with open("./dir/template/wasm1.dg", "rt") as wasm1:
                     outfile.write(wasm1.read())
-                for wasm in self.MUTATELIST:
+                for i in range(self.args.m):
+                    wasm = 'mutate' + str(i).zfill(2) + '.wasm'
                     with open("./dir/mutate/" + wasm, "rb") as f:
                         data = f.read()
                         modulewasm = "  new Uint8Array(["
@@ -82,7 +83,7 @@ class Mutator():
             # dharma로 js 생성
             cmd = []
             cmd.append("dharma")
-            cmd.append("-grammars ./dir/template/real_wasm.dg")
+            cmd.append("-grammars ./dir/template/dharma_template.dg")
             if idx == 0:
                 cmd.append("-storage ./dir/input/")
             elif idx == 1:

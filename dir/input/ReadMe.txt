@@ -1,2 +1,0 @@
-input directory
-- target argument

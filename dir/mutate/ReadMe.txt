@@ -1,2 +1,0 @@
-mutate directory
-- mutated wasm

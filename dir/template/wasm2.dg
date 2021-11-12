@@ -27,4 +27,3 @@ arguments :=
 	!globalwasm!
 	!globalwasm!
 
-importObject :=
