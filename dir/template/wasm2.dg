@@ -27,3 +27,8 @@ arguments :=
 	!globalwasm!
 	!globalwasm!
 
+importObject :=
+	{}
+	{ js: { !globalwasm! } }
+	{ js: { tbl: !tablewasm! } }
+	{ js: { mem: !memorywasm! } }
