@@ -3,10 +3,10 @@
 %%% ## https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly
 %%% #############
 
-%const% VARIANCE_MIN := 200
-%const% VARIANCE_MAX := 1000
-%const% VARIABLE_MIN := 2
-%const% VARIABLE_MAX := 2
+%const% VARIANCE_MIN := 100
+%const% VARIANCE_MAX := 200
+%const% VARIABLE_MIN := 10
+%const% VARIABLE_MAX := 10
 
 %%% ####################################################
 %%% ####################################################
