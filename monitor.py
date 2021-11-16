@@ -40,20 +40,22 @@ class Monitor():
             flag = False
             if b"AddressSanitizer".lower() in line.lower():
                 DASHBOARD.CrashCount += 1
+                Number = str(DASHBOARD.CrashCount) + '.ASAN_'
                 flag = True
             if b"Fatal error in".lower() in line.lower():
                 DASHBOARD.DcheckCount += 1
+                Number = str(DASHBOARD.DcheckCount) + '.DCHECK_'
                 flag = True
             if flag is True:
                 DASHBOARD.LastCrashTime = datetime.datetime.now()
-                now_time = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+                now_time = DASHBOARD.LastCrashTime.strftime('%Y-%m-%d-%H-%M-%S')
 
                 # collect crash js 
-                crash_js = CRASH_DIR+'/crash_'+ now_time +'_.js'
+                crash_js = CRASH_DIR + '/' + Number + now_time + '.js'
                 shutil.copy2(input, crash_js) # copy metadata
                 
                 # collect crash log
-                crash_log = CRASH_DIR+'/crash_'+ now_time +'_.log'
+                crash_log = CRASH_DIR + '/' + Number + now_time + '.log'
                 with open(crash_log, 'wb') as fp:
                     fp.write(line) # first line
                     for line in p.stderr: # ... line
