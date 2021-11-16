@@ -21,6 +21,7 @@
 #include <cstdarg>
 #include <cstdint>
 #include <cstdio>
+#include <ctime>
 #include <set>
 #include <vector>
 #include <iostream>
@@ -39,12 +40,17 @@
 #define PRINT_HEADER_NO_INDEX -1
 #define MAX_U32_LEB128_BYTES 5
 
-static float _percentage = 0.3;
+std::random_device rd;
+std::mt19937 gen(rd());
+std::uniform_int_distribution<int> dis(0, 99);
+
+static float _percentage = 0.1;
 bool export_Flag = false;
 
 namespace wabt {
-  float Rand(){
-  return static_cast<float> (std::rand()) / static_cast<float> ((RAND_MAX));
+
+float Rand(){
+  return (float)dis(gen)/(float)100;
 }
 
 void WriteStr(Stream* stream,

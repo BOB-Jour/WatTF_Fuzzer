@@ -163,7 +163,7 @@ int ProgramMain(int argc, char** argv) {
   // validator.CheckModule은 validator.cc:623에 있음
   if (Succeeded(result) && s_validate) {
     ValidateOptions options(s_features);
-    result = ValidateModule(module.get(), &errors, options);
+    // result = ValidateModule(module.get(), &errors, options);
   }
 
   // validate하면 stream에 binary를 write

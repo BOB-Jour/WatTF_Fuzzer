@@ -74,7 +74,7 @@ class watTF():
 
         # DASHBOARD
         self.DASHBOARD = Dashboard.Dashboard()
-        self.DASHBOARD.run_dashboard()
+        # self.DASHBOARD.run_dashboard()
         self.DASHBOARD.seedTotalCount = self.SEEDCount
 
         # input initialize
@@ -110,7 +110,6 @@ class watTF():
         elif self.idx == 1:
             for input in INPUTLIST2:
                 self.q.put(input)
-        print(self.q.qsize())
 
 
     def monitoring(self, input):
